@@ -54,7 +54,7 @@ class UnifiCamBase(metaclass=ABCMeta):
         parser.add_argument(
             "--ffmpeg-args",
             "-f",
-            default="-c:v copy -ar 32000 -ac 1 -codec:a aac -b:a 32k",
+            default="-c:v copy -ar 32000 -ac 1 -codec:a copy -b:a 32k",
             help="Transcoding args for `ffmpeg -i <src> <args> <dst>`",
         )
         parser.add_argument(
@@ -862,7 +862,7 @@ class UnifiCamBase(metaclass=ABCMeta):
         fn = m["functionName"]
 
         self.logger.info(f"Processing [{fn}] message")
-        self.logger.debug(f"Message contents: {m}")
+        self.logger.info(f"Message contents: {m}")
 
         if (("responseExpected" not in m) or (m["responseExpected"] is False)) and (
             fn
@@ -962,10 +962,9 @@ class UnifiCamBase(metaclass=ABCMeta):
                 f" {self.get_base_ffmpeg_args(stream_index)} -rtsp_transport"
                 f' {self.args.rtsp_transport} -i "{source}"'
                 f" {self.get_extra_ffmpeg_args(stream_index)} -metadata"
-                f" streamName={stream_name} -f {self.args.format} - | {sys.executable} -m"
-                " unifi.clock_sync"
-                f" --timestamp-modifier {self.args.timestamp_modifier} | nc"
-                f" {destination[0]} {destination[1]}"
+                f" streamName={stream_name} -f {self.args.format} - | "
+                f"{sys.executable} -m unifi.clock_sync --timestamp-modifier {self.args.timestamp_modifier} | " # clock sync
+                f"nc {destination[0]} {destination[1]}" # nc to NVR
             )
 
             if is_dead:

@@ -42,7 +42,7 @@ optional arguments:
 - Notes:
   - Camera configuration:
     - Video codec must be H.264 (H.265/HEVC is not supported).
-    - Audio codec should be AAC. If not, adjust the ffmpeg args to re-encode to AAC.
+    - Audio codec should be AAC. If not, adjust the ffmpeg args to re-encode to AAC.  (Protect 4.0.33 seems to not like this in live view, and will only show a preview)
     - Ensure the sub stream is enabled.
     - If desired, ensure motion detection is enabled with the desired anti-dither and detection area.
   - The `-bsf:v` parameter is needed to make live video work.

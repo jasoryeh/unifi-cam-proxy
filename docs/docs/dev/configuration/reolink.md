@@ -20,7 +20,7 @@ unifi-cam-proxy -H {NVR IP} -i {camera IP} -c /client.pem -t {Adoption token} \
     -u {username} \
     -p {password} \
     -s "main" \
-    --ffmpeg-args='-c:v copy -bsf:v "h264_metadata=tick_rate=60000/1001" -ar 32000 -ac 1 -codec:a aac -b:a 32k'
+    --ffmpeg-args='-c:v copy -bsf:v "h264_metadata=tick_rate=60000/1001" -ar 32000 -ac 1 -codec:a copy -b:a 32k'
 ```
 
 ## Options
@@ -54,5 +54,5 @@ unifi-cam-proxy --mac '{unique MAC}' -H {NVR IP} -i {camera IP} -c /client.pem -
     -u {username} \
     -p {password} \
     -s "main" \
-    --ffmpeg-args='-c:v copy -bsf:v "h264_metadata=tick_rate=60000/1001" -ar 32000 -ac 1 -codec:a aac -b:a 32k'
+    --ffmpeg-args='-c:v copy -bsf:v "h264_metadata=tick_rate=60000/1001" -ar 32000 -ac 1 -codec:a copy -b:a 32k'
 ```
